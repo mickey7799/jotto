@@ -1,14 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 function TotalGuess(props) {
-  return <h5>Total Guesses: {props.totalGuess}</h5>;
+  return (
+    <h5 data-test='Component-total-guesses'>
+      Total Guesses: {props.totalGuess}
+    </h5>
+  );
 }
 
-const mapStateToProps = state => {
-  return {
-    totalGuess: state.guessedWords.length
-  };
+TotalGuess.propTypes = {
+  totalGuess: PropTypes.number.isRequired
 };
 
-export default connect(mapStateToProps)(TotalGuess);
+export default TotalGuess;

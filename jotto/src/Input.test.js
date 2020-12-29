@@ -31,6 +31,10 @@ describe('render', () => {
       const submitButton = findByTestAttr(wrapper, 'submit-button');
       expect(submitButton.length).toBe(1);
     });
+    test('renders giveUp button', () => {
+      const giveUpbutton = findByTestAttr(wrapper, 'give-up-button');
+      expect(giveUpbutton.length).toBe(1);
+    });
   });
 });
 
@@ -54,6 +58,10 @@ describe('update state', () => {
       const submitButton = findByTestAttr(wrapper, 'submit-button');
       expect(submitButton.length).toBe(0);
     });
+    test('does not render giveUp button', () => {
+      const giveUpbutton = findByTestAttr(wrapper, 'give-up-button');
+      expect(giveUpbutton.length).toBe(0);
+    });
   });
 });
 
@@ -64,10 +72,21 @@ describe('redux props', () => {
     const successProp = wrapper.instance().props.success;
     expect(successProp).toBe(success);
   });
+  test('has `gaveUp` piece of state as prop', () => {
+    const gaveUp = true;
+    const wrapper = setup({ gaveUp });
+    const gaveUpProp = wrapper.instance().props.gaveUp;
+    expect(gaveUpProp).toBe(gaveUp);
+  });
   test('`guessWord` action creator is a function prop', () => {
     const wrapper = setup();
     const guessWordProp = wrapper.instance().props.guessWord;
     expect(guessWordProp).toBeInstanceOf(Function);
+  });
+  test('`giveUp` action creator is a function prop', () => {
+    const wrapper = setup();
+    const giveUpProp = wrapper.instance().props.giveUp;
+    expect(giveUpProp).toBeInstanceOf(Function);
   });
 });
 
@@ -104,5 +123,23 @@ describe('`guessWord` action creator call', () => {
 
   test('clear input box on submit', () => {
     expect(wrapper.state('currentGuess')).toBe('');
+  });
+});
+
+describe('`giveUp` action creator call', () => {
+  let giveUpMock;
+  let wrapper;
+  beforeEach(() => {
+    giveUpMock = jest.fn();
+    const props = {
+      giveUp: giveUpMock
+    };
+    wrapper = shallow(<UnconnectedInput {...props} />);
+    const giveUpbutton = findByTestAttr(wrapper, 'give-up-button');
+    giveUpbutton.simulate('click', { preventDefault() {} });
+  });
+  test('call `giveUp` when button is clicked', () => {
+    const giveUpMockCallCount = giveUpMock.mock.calls.length;
+    expect(giveUpMockCallCount).toBe(1);
   });
 });

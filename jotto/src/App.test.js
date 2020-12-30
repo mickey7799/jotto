@@ -13,17 +13,31 @@ const setup = (initialState = {}) => {
 };
 
 describe('redux props', () => {
+  let wrapper;
+  const success = false;
+  const gaveUp = false;
+  const secretWord = 'party';
+  const guessedWords = [{ guessedWord: 'train', letterMatchCount: 3 }];
+
+  BeforeEach(() => {
+    wrapper = setup({
+      success,
+      gaveUp,
+      secretWord,
+      guessedWords
+    });
+  });
   test('has access to `success` state', () => {
-    const success = true;
-    const wrapper = setup({ success });
     const successProp = wrapper.instance().props.success;
     expect(successProp).toBe(success);
   });
   test('has access to `secretWord` state', () => {
-    const secretWord = 'party';
-    const wrapper = setup({ secretWord });
     const secretWordProp = wrapper.instance().props.secretWord;
     expect(secretWordProp).toBe(secretWord);
+  });
+  test('has access to `gaveUp` state', () => {
+    const gaveUpProp = wrapper.instance().props.gaveUp;
+    expect(gaveUpProp).toBe(gaveUp);
   });
   test('has access to `guessedWords` state', () => {
     const guessedWords = [{ guessedWord: 'train', letterMatchCount: 3 }];

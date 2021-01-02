@@ -5,7 +5,8 @@ export const actionTypes = {
   GUESS_WORD: 'GUESS_WORD',
   SET_SECRET_WORD: 'SET_SECRET_WORD',
   RESET_GAME: 'RESET_GAME',
-  GIVE_UP: 'GIVE_UP'
+  GIVE_UP: 'GIVE_UP',
+  USER_ENTERING: 'USER_ENTERING'
 };
 
 export const guessWord = guessedWord => {
@@ -42,3 +43,5 @@ export const resetGame = () => {
 export const giveUp = () => {
   return { type: actionTypes.GIVE_UP };
 };
+
+export const setUserEntering = () => ({ type: actionTypes.USER_ENTERING });

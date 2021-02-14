@@ -21,7 +21,7 @@ The purpose of this project was to get familiar with TDD and React unit testing 
 
 `yarn`
 
-##### Run Search Restaurants from the root directory.
+##### Run Jotto from the root directory.
 
 `yarn start`
 
